@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const orderSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, 
       ref: "User",
       required: true,
+      // อันนี้คือให้ฟิลนี้เป็น object id เหมือนกับ model ของ User
     },
     products: [
       {
@@ -13,6 +14,7 @@ const orderSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
           required: true,
+          // อันนี้คือให้ฟิลนี้เป็น object id เหมือนกับ model ของ Product
         },
         quantity: {
           type: Number,
