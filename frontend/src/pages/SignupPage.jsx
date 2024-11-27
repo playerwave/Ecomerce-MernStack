@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { UserPlus, Mail, Lock, User, Loader } from "lucide-react";
+import { UserPlus, Mail, Lock, ArrowRight, User, Loader } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const SignupPage = () => {
   const loading = false;
@@ -170,6 +171,16 @@ const SignupPage = () => {
               )}
             </button>
           </form>
+
+          <p className="mt-8 text-center text-sm text-gray-400">
+            Already member?{" "}
+            <Link
+              to="/login"
+              className="font-medium text-emerald-400 hover:text-emerald-300"
+            >
+              Login here <ArrowRight className="inline h-4 w-4" />
+            </Link>
+          </p>
         </div>
       </motion.div>
     </div>
