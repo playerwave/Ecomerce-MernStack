@@ -100,6 +100,8 @@ export const login = async (req, res, next) => {
 
 export const logout = async (req, res) => {
   try {
+    console.log("logout controller");
+
     const refreshToken = req.cookies.refreshToken;
     if (refreshToken) {
       const decoded = jwt.verify(
