@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
+import CategoryPage from "./pages/CategoryPage.jsx";
 
 // import components
 import Navbar from "./components/Navbar.jsx";
@@ -54,6 +55,10 @@ function App() {
             element={
               user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />
             }
+          />
+          <Route
+            path="/category/:category"
+            element={<CategoryPage/>}
           />
         </Routes>
       </div>
