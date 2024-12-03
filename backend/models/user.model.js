@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
       minlength: [6, "Password must be at least 6 character long"],
       // ตรง minlength คือต้องมีขั้นต่ำ 6 ตัวอักษรถ้าไม่ถึงก็จะขึ้นข้อความข้างขวา
     },
-    cart: [
+    cartItems: [
       {
         quantity: {
           type: Number,
@@ -50,7 +50,7 @@ userSchema.pre("save", async function (next) {
   // ส่วนที่ต้องใส่ next ใน parameter เพื่อให้ฟังชั้นนี้รองรับการใช้ next()
 
   if (!this.isModified("password")) return next();
-  // ตรงนี้คือ ถ้ามีการแก้ไขแค่ name หรือ email แต่ว่า password ไม่เปลี่ยนก็จะข้ามการ hashing 
+  // ตรงนี้คือ ถ้ามีการแก้ไขแค่ name หรือ email แต่ว่า password ไม่เปลี่ยนก็จะข้ามการ hashing
   // เพื่อไม่ให้ password ถูก hashing 2 ครั้ง
 
   try {
