@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
+import CartPage from "./pages/CartPage.jsx";
 
 // import components
 import Navbar from "./components/Navbar.jsx";
@@ -19,14 +20,24 @@ import { Toaster } from "react-hot-toast";
 
 //import store
 import { useUserStore } from "./stores/useUserStore.js";
+import { useCartStore } from "./stores/useCartStore.js";
+
+//import components
 import LoadingSpinner from "./components/LoadingSpinner.jsx";
 
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
+  const { getCartItems } = useCartStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  useEffect(() => {
+    if (!user) return;
+    getCartItems();
+  }, [getCartItems, user]);
+
   if (checkingAuth) return <LoadingSpinner />;
 
   return (
@@ -56,9 +67,10 @@ function App() {
               user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />
             }
           />
+          <Route path="/category/:category" element={<CategoryPage />} />
           <Route
-            path="/category/:category"
-            element={<CategoryPage/>}
+            path="/cart"
+            element={user ? <CartPage /> : <Navigate to={"/login"} />}
           />
         </Routes>
       </div>
