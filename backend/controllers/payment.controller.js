@@ -20,13 +20,14 @@ export const createCheckoutSession = async (req, res) => {
 
       return {
         price_data: {
-          currency: "usd",
+          currency: "thb",
           product_data: {
             name: product.name,
-            image: [product.image],
+            image: [product.images],
           },
           unit_amount: amount,
         },
+        quantity: product.quantity || 1,
       };
     });
 
@@ -47,7 +48,7 @@ export const createCheckoutSession = async (req, res) => {
     }
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card", "paypal"],
+      payment_method_types: ["card", "promptpay"],
       line_items: lineItems,
       mode: "payment",
       success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
@@ -88,7 +89,7 @@ export const createCheckoutSession = async (req, res) => {
 export const checkoutSuccess = async (req, res) => {
   try {
     const { sessionId } = req.body;
-    const session = await stripe.checkout.session.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     if (session.payment_status === "paid") {
       if (session.metadata.couponCode) {
