@@ -61,7 +61,7 @@ const GiftCouponCard = () => {
           whileTap={{ scale: 0.95 }}
           onClick={handleApplyCoupon}
         >
-          Apply Code {coupon}
+          Apply Code
         </motion.button>
       </div>
       {isCouponApplied && coupon && (
